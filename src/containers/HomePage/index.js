@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TabsWrapper, TabsContainer, TabsTitles, SingleTitle, TabContent } from './styled';
+import { Link } from 'react-router-dom';
+import {
+  TabsWrapper,
+  TabsContainer,
+  TabsTitles,
+  SingleTitle,
+  TabContent,
+} from './styled';
 import bookData from '../../data/books';
-import TabBookList from "../../components/TabBookList";
+import TabBookList from '../../components/TabBookList';
+import { tabTitles } from '../../utils/consts';
 
 class HomePage extends Component {
   state = {
@@ -12,31 +20,37 @@ class HomePage extends Component {
   componentDidMount() {
     const { activeTab } = this.state;
     const { params } = this.props.match;
-    if(activeTab !== params.tab) {
+    if (activeTab !== params.tab) {
+      // TODO вынести в отдельную функцию
       this.setState({
         activeTab: params.tab,
-      })
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { activeTab } = this.state;
+
+    if (nextProps.match && nextProps.match.params.tab !== activeTab) {
+      this.setState({
+        activeTab: nextProps.match.params.tab,
+      });
     }
   }
 
   render() {
-    console.log(this.state.activeTab, );
     return (
       <TabsWrapper>
         <TabsContainer>
           <TabsTitles>
-            <SingleTitle>
-              <button>To read (3)</button>
-            </SingleTitle>
-            <SingleTitle>
-              <button>In progress (1)</button>
-            </SingleTitle>
-            <SingleTitle>
-              <button>Done (5)</button>
-            </SingleTitle>
+            {tabTitles.map(({ text, routing }) => (
+              <SingleTitle key={routing}>
+                <Link to={`/${routing}`}>{text}</Link>
+              </SingleTitle>
+            ))}
           </TabsTitles>
           <TabContent>
-            <TabBookList bookList={bookData.items}/>
+            <TabBookList bookList={bookData.items} />
           </TabContent>
         </TabsContainer>
       </TabsWrapper>

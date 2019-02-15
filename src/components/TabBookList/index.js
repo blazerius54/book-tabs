@@ -6,11 +6,10 @@ import {
   BookTitle,
   DescriptionContent,
 } from './styled';
-import TagList from "../TagList";
+import TagList from '../TagList';
 
 class TabBookList extends Component {
   render() {
-    console.log(this.props);
     const { bookList } = this.props;
     return (
       <React.Fragment>
@@ -27,12 +26,7 @@ class TabBookList extends Component {
             <DescriptionContent>
               <p>{description}</p>
             </DescriptionContent>
-            {/*{*/}
-              {/*tags && tags.map(tag => <p>{tag}</p>)*/}
-            {/*}*/}
-            {
-              <TagList tagList={tags}/>
-            }
+            <TagList tagList={tags} />
           </SingleBook>
         ))}
       </React.Fragment>

@@ -7,13 +7,11 @@ class TagList extends Component {
     const { tagList } = this.props;
     return (
       <TagWrapper>
-        {
-          tagList.map(tag => (
-            <SingleTag>
-              <p>#{tag}</p>
-            </SingleTag>
-          ))
-        }
+        {tagList.map(tag => (
+          <SingleTag key={tag}>
+            <p>#{tag}</p>
+          </SingleTag>
+        ))}
       </TagWrapper>
     );
   }
