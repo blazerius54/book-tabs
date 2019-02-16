@@ -25,7 +25,9 @@ class HomePage extends Component {
 
   componentDidMount() {
     const { activeTab } = this.state;
-    const { params, history } = this.props.match;
+    const { history } = this.props;
+    const { params } = this.props.match;
+
     if (activeTab !== params.tab) {
       this.setActiveTab(params.tab);
     }
