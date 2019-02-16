@@ -25,9 +25,13 @@ class HomePage extends Component {
 
   componentDidMount() {
     const { activeTab } = this.state;
-    const { params } = this.props.match;
+    const { params, history } = this.props.match;
     if (activeTab !== params.tab) {
       this.setActiveTab(params.tab);
+    }
+
+    if (!params.tab) {
+      history.push('/toread');
     }
   }
 
@@ -63,6 +67,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   match: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default HomePage;
