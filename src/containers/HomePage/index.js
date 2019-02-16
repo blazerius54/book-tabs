@@ -14,17 +14,20 @@ import { tabTitles } from '../../utils/consts';
 
 class HomePage extends Component {
   state = {
-    activeTab: 'toRead',
+    activeTab: 'toread',
+  };
+
+  setActiveTab = activeTab => {
+    this.setState({
+      activeTab,
+    });
   };
 
   componentDidMount() {
     const { activeTab } = this.state;
     const { params } = this.props.match;
     if (activeTab !== params.tab) {
-      // TODO вынести в отдельную функцию
-      this.setState({
-        activeTab: params.tab,
-      });
+      this.setActiveTab(params.tab);
     }
   }
 
@@ -32,19 +35,19 @@ class HomePage extends Component {
     const { activeTab } = this.state;
 
     if (nextProps.match && nextProps.match.params.tab !== activeTab) {
-      this.setState({
-        activeTab: nextProps.match.params.tab,
-      });
+      this.setActiveTab(nextProps.match.params.tab);
     }
   }
 
   render() {
+    const { activeTab } = this.state;
+
     return (
       <TabsWrapper>
         <TabsContainer>
           <TabsTitles>
             {tabTitles.map(({ text, routing }) => (
-              <SingleTitle key={routing}>
+              <SingleTitle key={routing} activeTab={activeTab === routing}>
                 <Link to={`/${routing}`}>{text}</Link>
               </SingleTitle>
             ))}

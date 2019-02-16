@@ -22,10 +22,15 @@ export const SingleTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #999;
-  
-  button {
-    cursor: pointer;
+  border-bottom: 1px solid
+    ${props => (props.activeTab ? 'transparent' : '#999')};
+
+  &:not(:last-of-type) {
+    border-right: 1px solid #999;
+  }
+
+  a {
+    color: ${props => props.activeTab && '#5658db'};
   }
 `;
 
