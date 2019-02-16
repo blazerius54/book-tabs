@@ -1,14 +1,14 @@
 export const tabTitles = [
   {
-    text: 'To read (3)',
+    text: 'To read',
     routing: 'toread',
   },
   {
-    text: 'In progress (1)',
+    text: 'In progress',
     routing: 'inprogress',
   },
   {
-    text: 'Done (5)',
+    text: 'Done',
     routing: 'done',
   },
 ];

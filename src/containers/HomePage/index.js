@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import {
   TabsWrapper,
@@ -8,7 +10,6 @@ import {
   SingleTitle,
   TabContent,
 } from './styled';
-import bookData from '../../data/books';
 import TabBookList from '../../components/TabBookList';
 import { tabTitles } from '../../utils/consts';
 
@@ -47,6 +48,7 @@ class HomePage extends Component {
 
   render() {
     const { activeTab } = this.state;
+    const { books } = this.props;
 
     return (
       <TabsWrapper>
@@ -54,12 +56,12 @@ class HomePage extends Component {
           <TabsTitles>
             {tabTitles.map(({ text, routing }) => (
               <SingleTitle key={routing} activeTab={activeTab === routing}>
-                <Link to={`/${routing}`}>{text}</Link>
+                <Link to={`/${routing}`}>{text} {books[routing].length}</Link>
               </SingleTitle>
             ))}
           </TabsTitles>
           <TabContent>
-            <TabBookList bookList={bookData.items} />
+            <TabBookList bookList={books[activeTab]} />
           </TabContent>
         </TabsContainer>
       </TabsWrapper>
@@ -70,6 +72,16 @@ class HomePage extends Component {
 HomePage.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  books: PropTypes.array.isRequired,
 };
 
-export default HomePage;
+
+const mapStateToProps = state => ({
+  books: state.appReducer.books
+});
+
+// function mapDispatchToProps (dispatch) {
+//   return bindActionCreators({ addNewTodo, deleteTodo, editTodo, setTodoDone }, dispatch)
+// }
+
+export default connect(mapStateToProps)(HomePage);
