@@ -10,8 +10,16 @@ export const SingleBook = styled.div`
 export const AuthorName = styled.div``;
 
 export const BookTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   h4 {
     margin: 0;
+  }
+
+  button {
+    font-weight: 600;
+    cursor: pointer;
   }
 `;
 

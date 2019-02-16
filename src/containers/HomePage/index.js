@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { changeBookStatus } from './actions';
 import {
   TabsWrapper,
   TabsContainer,
@@ -48,7 +49,18 @@ class HomePage extends Component {
 
   render() {
     const { activeTab } = this.state;
-    const { books } = this.props;
+    const { books, changeBookStatus } = this.props;
+    let newStatus = '';
+
+    if (activeTab === 'toread') {
+      newStatus = 'inprogress';
+    }
+    if (activeTab === 'inprogress') {
+      newStatus = 'done';
+    }
+    if (activeTab === 'done') {
+      newStatus = 'toread';
+    }
 
     return (
       <TabsWrapper>
@@ -56,12 +68,19 @@ class HomePage extends Component {
           <TabsTitles>
             {tabTitles.map(({ text, routing }) => (
               <SingleTitle key={routing} activeTab={activeTab === routing}>
-                <Link to={`/${routing}`}>{text} {books[routing].length}</Link>
+                <Link to={`/${routing}`}>
+                  {text} {books[routing].length}
+                </Link>
               </SingleTitle>
             ))}
           </TabsTitles>
           <TabContent>
-            <TabBookList bookList={books[activeTab]} />
+            <TabBookList
+              bookList={books[activeTab]}
+              changeBookStatus={id =>
+                changeBookStatus(id, newStatus, activeTab)
+              }
+            />
           </TabContent>
         </TabsContainer>
       </TabsWrapper>
@@ -72,16 +91,18 @@ class HomePage extends Component {
 HomePage.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  books: PropTypes.array.isRequired,
+  books: PropTypes.object.isRequired,
+  changeBookStatus: PropTypes.func.isRequired,
 };
 
-
 const mapStateToProps = state => ({
-  books: state.appReducer.books
+  books: state.appReducer.books,
 });
 
-// function mapDispatchToProps (dispatch) {
-//   return bindActionCreators({ addNewTodo, deleteTodo, editTodo, setTodoDone }, dispatch)
-// }
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ changeBookStatus }, dispatch);
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HomePage);

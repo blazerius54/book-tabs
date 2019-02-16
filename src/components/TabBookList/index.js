@@ -10,7 +10,7 @@ import TagList from '../TagList';
 
 class TabBookList extends Component {
   render() {
-    const { bookList } = this.props;
+    const { bookList, changeBookStatus } = this.props;
     return (
       <React.Fragment>
         {bookList.map(({ id, author, title, description, tags }) => (
@@ -21,6 +21,7 @@ class TabBookList extends Component {
               </AuthorName>
               <BookTitle>
                 <h4>{title}</h4>
+                <button onClick={()=>changeBookStatus(id)}>start reading</button>
               </BookTitle>
             </header>
             <DescriptionContent>
@@ -36,6 +37,7 @@ class TabBookList extends Component {
 
 TabBookList.propTypes = {
   bookList: PropTypes.array.isRequired,
+  changeBookStatus: PropTypes.func.isRequired,
 };
 
 export default TabBookList;
