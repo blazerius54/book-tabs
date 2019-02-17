@@ -4,12 +4,12 @@ import { TagWrapper, SingleTag } from './styled';
 
 class TagList extends Component {
   render() {
-    const { tagList } = this.props;
+    const { tagList, changeBookFilter } = this.props;
     return (
       <TagWrapper>
         {tagList.map(tag => (
           <SingleTag key={tag}>
-            <p>#{tag}</p>
+            <button onClick={() => changeBookFilter(tag)}>#{tag}</button>
           </SingleTag>
         ))}
       </TagWrapper>
@@ -19,6 +19,7 @@ class TagList extends Component {
 
 TagList.propTypes = {
   tagList: PropTypes.array.isRequired,
+  changeBookFilter: PropTypes.func,
 };
 
 export default TagList;

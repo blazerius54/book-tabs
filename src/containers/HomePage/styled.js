@@ -13,6 +13,7 @@ export const TabsContainer = styled.div`
 
 export const TabsTitles = styled.div`
   display: flex;
+  flex-shrink: 0;
   width: 100%;
   height: 50px;
 `;
@@ -40,4 +41,22 @@ export const TabContent = styled.div`
   height: 100%;
   width: 100%;
   overflow-y: scroll;
+`;
+
+export const TagContent = styled.div`
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const FiltredText = styled.p`
+  margin-right: 5px;
+`;
+
+export const ClearTagsBtn = styled.button`
+  font-weight: 600;
+  cursor: pointer;
 `;

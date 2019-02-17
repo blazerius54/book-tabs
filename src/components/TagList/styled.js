@@ -13,9 +13,11 @@ export const SingleTag = styled.div`
   padding: 5px;
   margin-right: 8px;
   border-radius: 5px;
-  cursor: pointer;
   margin-bottom: 10px;
-  p {
+
+  button {
+    cursor: pointer;
+    font-weight: 600;
     margin: 0;
   }
 `;

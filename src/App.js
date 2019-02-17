@@ -8,9 +8,9 @@ import configureStore from './configureStore';
 const initialState = {};
 const store = configureStore(initialState, history);
 
-store.subscribe(()=>{
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
+store.subscribe(() => {
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+});
 
 class App extends Component {
   render() {

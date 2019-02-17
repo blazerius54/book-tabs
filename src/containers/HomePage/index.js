@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { changeBookStatus } from './actions';
+import { changeBookStatus, changeBookFilter, resetBookFilter } from './actions';
 import {
   TabsWrapper,
   TabsContainer,
   TabsTitles,
   SingleTitle,
   TabContent,
+  TagContent,
+  FiltredText,
+  ClearTagsBtn,
 } from './styled';
 import TabBookList from '../../components/TabBookList';
 import { tabTitles } from '../../utils/consts';
+import TagList from '../../components/TagList';
 
 class HomePage extends Component {
   state = {
@@ -49,7 +53,14 @@ class HomePage extends Component {
 
   render() {
     const { activeTab } = this.state;
-    const { books, changeBookStatus } = this.props;
+    const {
+      books,
+      filterTags,
+      changeBookStatus,
+      changeBookFilter,
+      resetBookFilter,
+    } = this.props;
+    const isBooksFiltred = filterTags.length > 0;
     let newStatus = '';
 
     if (activeTab === 'toread') {
@@ -74,6 +85,13 @@ class HomePage extends Component {
               </SingleTitle>
             ))}
           </TabsTitles>
+          {isBooksFiltred && (
+            <TagContent>
+              <FiltredText>Filtred by tags: </FiltredText>
+              <TagList tagList={filterTags} />
+              <ClearTagsBtn onClick={resetBookFilter}>(clear)</ClearTagsBtn>
+            </TagContent>
+          )}
           <TabContent>
             <TabBookList
               bookList={books[activeTab]}
@@ -81,6 +99,8 @@ class HomePage extends Component {
                 changeBookStatus(id, newStatus, activeTab)
               }
               newStatus={newStatus}
+              filterTags={filterTags}
+              changeBookFilter={changeBookFilter}
             />
           </TabContent>
         </TabsContainer>
@@ -94,14 +114,21 @@ HomePage.propTypes = {
   history: PropTypes.object.isRequired,
   books: PropTypes.object.isRequired,
   changeBookStatus: PropTypes.func.isRequired,
+  changeBookFilter: PropTypes.func.isRequired,
+  resetBookFilter: PropTypes.func.isRequired,
+  filterTags: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
   books: state.appReducer.books,
+  filterTags: state.appReducer.filterTags,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ changeBookStatus }, dispatch);
+  bindActionCreators(
+    { changeBookStatus, changeBookFilter, resetBookFilter },
+    dispatch,
+  );
 
 export default connect(
   mapStateToProps,

@@ -1,4 +1,8 @@
-import { CHANGE_BOOK_STATUS } from './consts';
+import {
+  CHANGE_BOOK_STATUS,
+  CHANGE_BOOK_FILTER,
+  RESET_BOOK_FILTER,
+} from './consts';
 import bookData from '../../data/books';
 
 export const initialState = {
@@ -7,13 +11,14 @@ export const initialState = {
     inprogress: [],
     done: [],
   },
-  filter: 'toread',
+  filterTags: [],
 };
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_BOOK_STATUS:
       return {
+        ...state,
         books: {
           ...state.books,
           [action.currentStatus]: [
@@ -28,6 +33,19 @@ function appReducer(state = initialState, action) {
             ),
           ],
         },
+      };
+    case CHANGE_BOOK_FILTER:
+      if (state.filterTags.includes(action.newFilter)) {
+        return state;
+      }
+      return {
+        ...state,
+        filterTags: [...state.filterTags, action.newFilter],
+      };
+    case RESET_BOOK_FILTER:
+      return {
+        ...state,
+        filterTags: [],
       };
     default:
       return state;
