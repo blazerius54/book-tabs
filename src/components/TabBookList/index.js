@@ -24,7 +24,7 @@ class TabBookList extends Component {
           bookList.map(book => {
             const { id, author, title, description, tags } = book;
             if (
-              filterTags.length > 0 &&
+              filterTags && filterTags.length > 0 &&
               !filterTags.every(val => book.tags.includes(val))
             ) {
               return;

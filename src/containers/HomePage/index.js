@@ -60,7 +60,7 @@ class HomePage extends Component {
       changeBookFilter,
       resetBookFilter,
     } = this.props;
-    const isBooksFiltred = filterTags.length > 0;
+    const isBooksFiltred = filterTags && filterTags.length > 0;
     let newStatus = '';
 
     if (activeTab === 'toread') {
