@@ -13,23 +13,26 @@ class TabBookList extends Component {
     const { bookList, changeBookStatus } = this.props;
     return (
       <React.Fragment>
-        {bookList.map(({ id, author, title, description, tags }) => (
-          <SingleBook key={id}>
-            <header>
-              <AuthorName>
-                <p>{author}</p>
-              </AuthorName>
-              <BookTitle>
-                <h4>{title}</h4>
-                <button onClick={()=>changeBookStatus(id)}>start reading</button>
-              </BookTitle>
-            </header>
-            <DescriptionContent>
-              <p>{description}</p>
-            </DescriptionContent>
-            <TagList tagList={tags} />
-          </SingleBook>
-        ))}
+        {bookList &&
+          bookList.map(({ id, author, title, description, tags }) => (
+            <SingleBook key={id}>
+              <header>
+                <AuthorName>
+                  <p>{author}</p>
+                </AuthorName>
+                <BookTitle>
+                  <h4>{title}</h4>
+                  <button onClick={() => changeBookStatus(id)}>
+                    start reading
+                  </button>
+                </BookTitle>
+              </header>
+              <DescriptionContent>
+                <p>{description}</p>
+              </DescriptionContent>
+              <TagList tagList={tags} />
+            </SingleBook>
+          ))}
       </React.Fragment>
     );
   }

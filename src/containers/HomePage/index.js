@@ -16,7 +16,7 @@ import { tabTitles } from '../../utils/consts';
 
 class HomePage extends Component {
   state = {
-    activeTab: 'toread',
+    activeTab: '',
   };
 
   setActiveTab = activeTab => {
