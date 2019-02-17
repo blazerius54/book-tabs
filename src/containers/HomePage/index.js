@@ -80,6 +80,7 @@ class HomePage extends Component {
               changeBookStatus={id =>
                 changeBookStatus(id, newStatus, activeTab)
               }
+              newStatus={newStatus}
             />
           </TabContent>
         </TabsContainer>

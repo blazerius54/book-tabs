@@ -10,7 +10,7 @@ import TagList from '../TagList';
 
 class TabBookList extends Component {
   render() {
-    const { bookList, changeBookStatus } = this.props;
+    const { bookList, changeBookStatus, newStatus } = this.props;
     return (
       <React.Fragment>
         {bookList &&
@@ -23,7 +23,7 @@ class TabBookList extends Component {
                 <BookTitle>
                   <h4>{title}</h4>
                   <button onClick={() => changeBookStatus(id)}>
-                    start reading
+                    {newStatus}
                   </button>
                 </BookTitle>
               </header>
@@ -41,6 +41,7 @@ class TabBookList extends Component {
 TabBookList.propTypes = {
   bookList: PropTypes.array.isRequired,
   changeBookStatus: PropTypes.func.isRequired,
+  newStatus: PropTypes.string.isRequired,
 };
 
 export default TabBookList;
