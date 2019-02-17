@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export const TabsWrapper = styled.div`
-  width: 480px;
+  @import url(\`https://fonts.googleapis.com/css?family=Montserrat|Roboto\`);
+
+  min-width: 480px;
+  width: 100%;
+  font-family: Roboto, sans-serif;
 `;
 
 export const TabsContainer = styled.div`
